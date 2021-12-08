@@ -1,0 +1,271 @@
+La recherche en langages de programmation
+
+Gabriel Scherer (speaker)
+
+Mercredi 10 novembre 2021
+
+* Introduction
+
+Qui parle ?
+
+Je suis chercheur (chargé de recherche) à
+l'INRIA Saclay, équipe Partout, depuis 2017.
+
+(logique, théorie de la démonstration,
+ théorie des langages de programmation)
+
+Je travaille dans deux domaines généraux:
+- théorie: les représentations "focalisés" de lambda-calculs 
+- pratique: recherche appliquée à OCaml
+
+Je co-maintiens OCaml (~20 personnes au total).
+
+On va parler de quoi ?
+
+Comment travaillent les universitaires
+sur les langages de programmation ?
+
+- concrètement, ils et elles font quoi
+  de leurs journées ?
+- sur quels sujets ?
+
+* La méthode
+La recherche en informatique, de loin
+
+1. On trouve une question importante, difficile, d'intérêt général, non résolue.
+2. On travaille dessus (seul ou à plusieurs).
+3. Quand on a avancé sur le problème, on décrit cette avancée dans un article.
+4. D'autres universitaires relisent l'article, et l'acceptent/valident (ou non).
+4bis. On parle de son travail à ses collègues; transmission, et se faire mousser.
+
+(S'applique à l'international aussi)
+
+Un super boulot !
+
+On travaille *sur ce qu'on veut* et *comme on veut*.
+
+On n'a *pas* de chef pour nous casser les pieds.
+
+On peut, on doit être perfectionniste.
+
+(Mais parfois on est isolé, on manque de repères.)
+
+Il y aussi des trucs administratifs chiants à gérer.
+
+** Détails: les sujets
+
+Il y a quelques "gros sujets" qui se découpent en plein de petits sujets.
+
+*** Gros sujets (exemples)
+
+- Est-ce que P = NP ? (pas mon domaine)
+- Peut-on augmenter les performances d'un serveur web ?
+  (pas mon domaine)
+- Peut-on prouver facilement que les programmes qu'on écrit
+  respectent une spécification ?
+- Peut-on permettre de programmer agréablement
+  d'une façon qui élimine les bugs dès la conception ?
+- Peut-on vérifier facilement les preuves écrites par des mathématicien-ne-s ?
+
+*** Petits sujets (exemples)
+
+- Comment raisonner sur des entiers machines
+  en présence d'overflow ?
+- Comment spécifier ce que fait la fonction List.map
+  en présence d'effets de bord ?
+- Peut-on écrire joliment des programmes que l'on sait
+  compiler efficacement vers des GPU (cartes graphiques) ?
+  (Futhark ?)
+
+
+** Détails: les collaborations
+
+On connaît les personnes de notre domaine
+au niveau international (partout dans le monde).
+
+En général on travaille plutôt avec des gens qu'on voit physiquement
+(proximité géographique)
+
+Mais les gens changent souvent d'endroits, et les travaux continuent
+
+Email, visio-conférence, git.
+
+** Détails: la précarité en recherche
+
+Les gens changent souvent d'endroit en raison d'une précarité organisée.
+
+Stages (~4 mois), thèse (3 ans), post-doc (1/2 ans): CDD, mobilité forcée
+
+Pour embaucher ce personnel court-terme, il faut des financements.
+
+** Détails: soumettre un article
+
+Conférence ou journal. Prestige.
+
+Deadline: il faut être prêt à une date fixée
+(5/6 deadlines dans l'année, au choix).
+
+3/4 reviewers (on fait soi-même des rapports pour d'autres)
+
+Répartition (inégale) du travail entre co-auteurs.
+
+Par exemple: 1 à 4 soumissions par ans.
+
+** Détails: processus de relecture
+
+Vérifier la validité scientifique du travail
+
+... et trier pour rejeter les articles moins intéressants (prestige)
+
+Discussion anonyme, souvent un peu conflictuelle.
+
+Notes de chaque review, discussion du PC, décision.
+
+Par exemple: 1 à 4 soumissions, sur autant d'années.
+
+** Détails: présenter ses travaux
+
+Article accepté: on va à une conférence (ou en ligne).
+
+Par exemple: 1 à 3 articles par an.
+
++ Exposés dans des séminaires d'équipes ou thématiques.
+
+** Détails: financements
+
+Mode de financement dominant: le financement par projet.
+
+1. on écrit un document sur ce qu'on va faire plus tard,
+   qui vend du rêve,
+   et justifie d'embaucher du personnel précaire (théses, post-docs)
+2. on l'envoie au financeur
+   (ANR, machins bizarres, ERC, financement interne, fondation...)
+3. des gens le relisent
+4. si accepté (taux de succès variable, souvent 10-20%),
+   on a de l'argent pour 3-4 ans
+
+** Détails: se faire mousser
+
+Est-ce qu'un-e chercheu-r-se "cherche bien" ?
+
+- les collègues regardent les publications,
+  et le service à la communauté (rapports, organisation d'événements, etc.)
+
+- l'employeur regardent les financements obtenus, les publications,
+  et le service à l'employeur (comités internes)
+
+- les financeurs regardent les financements obtenus et les publications
+
+Financement:
+  pour recruter des collaborateurs (précaires)
+  et pour des missions (conférences ou visites de travail).
+
+** Remarque: et le code ?
+
+Globalement, peu de reconnaissance des contributions logicielles.
+
+- par certains collègues (une minorité)
+
+- par l'employeur / le financeur, quand on a de la chance
+  (l'INRIA est très en avance sur ce point)
+
+- par ses utilisateurs
+
+- un peu d'impact en terme de publications
+
+
+
+* Les contenus
+
+*** Quelques exemples récents
+
+*** Variables de motifs ambiguës
+
+Avec: Luc Maranget, Thomas Refis
+
+#+BEGIN_SRC ocaml
+| (Add (n, Zero) | Add (Zero, n)) -> n
+
+| Add (n, z) when is_zero z -> n
+
+| (Add (n, z) | Add (z, n)) when is_zero z -> n
+#+END_SRC
+
+*** Valeurs récursives
+
+Avec: Alban Reynaud, Jeremy Yallop
+
+#+BEGIN_SRC ocaml
+let rec fac = fun n ->
+  if n = 0 then 1
+  else n * fac (n - 1)
+
+type 'a stream = { head: 'a; tail: 'a stream }
+let constant_stream v =
+  let rec stream = { head = v; tail = stream } in
+  stream
+
+let rec wrong = wrong + 1
+#+END_SRC
+
+Idée: utiliser un système de "modes d'accès" pour savoir
+comment une définition utilise les noms récursifs.
+
+  x:Guard, y:Dereference ⊢ e : Return
+
+*** Exemple: déboîter des constructeurs
+
+Avec: Nicolas Chataing
+
+#+BEGIN_SRC ocaml
+type bignum =
+  | Small of int [@unboxed]
+  | Large of Gmp.t
+#+END_SRC
+
+Il faut détecter (statiquement) les amibguités.
+
+Besoin: déplier les définitions de type.
+
+#+BEGIN_SRC
+type 'a foo = (int * 'a) bar
+
+foo := λα. bar (prod int α)
+#+END_SRC
+
+Normalisation ? (Avec des types récursifs ?)
+
+** D'autres gens qui le font encore mieux
+
+https://dblp.org/pid/j/SimonLPeytonJones.html
+(et plein de collaborateurs !)
+
+2021: Hashing Modulo Alpha-Equivalence
+2020: A quick look at impredicativity.
+2020: Kinds are calling conventions
+2020: Lower your guards: a compositional pattern-match coverage checker.
+2019: Higher-order type-level programming in Haskell
+2019: Selective Lambda Lifting
+2018: Linear Haskell: practical linearity in a higher-order polymorphic language.
+2018: Type variables in patterns
+2018: Guarded impredicative polymorphism
+2017: Trees that Grow
+2017: SHErrLoc: A Static Holistic Error Locator
+[...]
+
+** Procédé
+
+On travaille sur l'implémention et l'évolution du langage.
+(résoudre des bugs, relire des PRs,
+ ronchoner sur de nouvelles fonctionnalités proposées)
+
+Collaborations: avec tout le monde (open source)
+
+Parfois, un problème est plus difficile/intéressant que d'habitude,
+on travaille dessus et on écrit un article à son sujet.
+
+Collaborations: plutôt des universitaires, avec exceptions
+
+Estimation de temps:
+- plusieurs mois pour faire le travail
+- un mois temps plein pour écrire et publier un article
